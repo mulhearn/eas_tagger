@@ -26,76 +26,147 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{figs/fluxes.pdf}
-    \caption{Incident differential intensity, from the CRDB.}
+    \caption{Incident differential intensity ($dJ/dE$), as presented
+      by the Cosmic Ray Database (CRDB).}
     \label{fig:cridi}
 \end{figure}
 
-The differential intensity $J$ of cosmic rays incident at the top of
-the atmosphere (TOA) is defined as
-$$J = \frac{dN}{dE \, dA \, dt \, d\Omega}$$
+The differential\footnote{Take care that some sources use J for this
+quanity, but we are following the more explicit notation of e.g. the
+CRDB} intensity $dJ/dE$ of cosmic rays incident at the top of the
+atmosphere (TOA) is defined as
+$$dJ/dE = \frac{dN}{dE \, dA \, dt \, d\Omega}$$
 where $E$ is the energy of the incident primary and $t$ is time.
 The quantities $d\Omega$ and $dA$ are the infinitesimal solid angle,
 relative to normal, and the infinitesimal area, both {\bf at the TOA}.
-The intensity has units:
-$$[J] = \left[ \frac{1}{\rm \epsilon \; m^2 \; sr \; s} \right]$$
-where $\epsilon$ is some energy scale, e.g. 1~GeV, and sr is a
-dimensionless reminder to integrate over solid angle.  The incident
+The differential intensity has units:
+$$[dJ/dE] = \left[ \frac{1}{\rm energy \; m^2 \; sr \; s} \right]$$
+where sr is a dimensionless reminder to integrate over solid angle.  The incident
 differential intensity at the top of the atmosphere is independent of
 direction and follows a power law:
 \begin{equation}
-J(E) = \alpha \left( \frac{E}{\epsilon} \right)^{-\gamma}
+\frac{dJ}{dE} = \frac{\alpha}{\epsilon} \left( \frac{E}{\epsilon} \right)^{-\gamma}
 \end{equation}
-with $\gamma ~\sim 3$.  The power law is only approximate.  Our
-results below include an estimate for a minimum energy, and we expect
-only a narrow energy region above this minimum will contribute
-significantly.  The parameters for the power law should therefore be
-taken for that energy range.
+where $\epsilon$ is a reference energy and $\gamma ~\sim 3$.  Note that
+$$\alpha = \epsilon \left. \frac{dJ}{dE}\right|_\epsilon$$
+depends on the reference energy choosen but does not depend on the
+energy units choosen, which will be convenient in what follows
+The energy-integrated intensity above some energy $E$ is:
+\begin{equation}
+\label{eqn:je}
+J(E) \; \equiv \;
+\int_{E}^{\infty} \frac{dJ}{dE} \, dE \; = \;
+\frac{\alpha}{\gamma-1} \left( \frac{E}{\epsilon} \right)^{(1-\gamma)}
+\end{equation}
 
-The differential intensity as tabulated by the Cosmic Ray Database
-(CRDB) is shown in Fig.~\ref{fig:cridi}.  When plotting a power law of form:
-$$\frac{dy}{dx} = \alpha x^{-\gamma}$$
-is often preferable to use a log-log scale, so that the power law becomes the linear relationship:
-$$\log \left( \frac{dy}{dx} \right) = -\gamma \log(x) + \log(\alpha)$$
-It also useful to set the $y$-axis to:
-$$x \frac{dy}{dx} = \frac{dy}{d(\log(x))}$$
-which removes any dependence\footnote{Notice that
-$d(log(x/X)) = d(log(x))$ for any constant $X$.}  on the units of $x$,
-and is appropriate for binning the $x$ parameters on a log scale.
-Furthermore, for a decreasing power lower, a calculation shows:
-$$\int_{a}^\infty \frac{dy}{dx} dx = \frac{1}{\gamma - 1} \left. x \frac{dy}{dx} \right|_{x=a}$$
-so the $y$-axis is proportional to the integrated rate.  Returning to Fig.~\ref{fig:cridi}, note that indeed:
-$$10^{-5} \cdot 24 \cdot 60 \cdot 60 = 0.86$$
-is indeed nearly 1 muon per day.
+Power laws quickly take us across many order of magnitude, so it is helpful
+to define and work with the dimensionless log-energy variable:
+\begin{equation}
+  \label{eqn:defu}
+  u \equiv \ln \left( \frac{E}{\epsilon}\right)
+  \implies E = \epsilon \, e^u
+\end{equation}
+from which it follows that:
+\begin{equation}
+du = \frac{dE}{E}
+\end{equation}
+and
+$$\frac{dJ}{du} = E \frac{dJ}{dE}$$
+We can therefore write the power law as:
+\begin{equation}
+\frac{dJ}{du} = \alpha \exp((1-\gamma)\, u)
+\end{equation}
+direct integration or substituting into Equation~\ref{eqn:defu} into Equation \ref{eqn:je}
+yields:
+\begin{equation}
+J(u) = \frac{\alpha}{\gamma-1} \exp((1-\gamma)\, u) = \frac{1}{1-\gamma} \frac{dJ}{du}
+\end{equation}
+Note also that:
+$$
+\ln \frac{dJ}{du} = \ln(\alpha) + (1-\gamma) u
+$$
+which is a linear relationship with slope $1-\gamma$.
 
-Next we are interested in the flux of incident cosmic ray particles
+These results show why differential intensity is often presented as $E
+dJ/dE = dJ/du$ vs $E$ using a log-log scale, such as in
+Fig.~\ref{fig:cridi}.  The power law is a linear relationship on a
+log-log scale, with a compressed scale.  Notice that the $y$-axis
+drops two orders of magnitude for every one order of magnitude
+increase of the $x$-axis, from which we read off:
+$$ 1 - \gamma = -2 \implies \gamma = 3$$
+Furthermore:
+$$J(E) = \frac{1}{1-\gamma} E \frac{dJ}{dE}$$
+so the $y$ axis is proportional to the energy-integrated intensity
+above $E$.  Also, the grey bands are where you would expect,
+e.g. there are $10^5$ seconds in a day, so the once-per-day band
+starts at $10^-5$, although the factor of $\gamma-1$ has been
+neglected.  Lastly, our definition of $\alpha$ allow us to read it
+directly from the plot: it is the $y$-value obtained by the curve at
+the reference energy $\epsilon$.
+
+\section{Shower Energy generation}
+
+The power law is only approximate.  Our results below include an
+estimate for a minimum shower energy, and we expect that only a narrow
+energy region above this minimum will contribute significantly to our
+experimental results.  The parameters for the power law should
+therefore be taken as the energy range appropriate for our experiment.
+
+We will want to simulate showers by drawing a random variable $u$, the
+dimensionless log-energy of the shower, following the distribution
+$dJ/du$.  This is equivalent to drawing a primary energy $E$ according
+to the power-law distribution $dJ/dE$, but is less susceptible to
+round off errors.  To avoid the divergence at $E=0$, we set a minimum shower energy $E_a$ and define:
+$$a \equiv \ln (E_a / \epsilon)$$
+The cumulative distribution function is:
+$$P(u) = \frac{J(a) - J(u)}{J(a)}$$
+so
+\begin{equation}
+P(u) = 1 - \exp\left( (1-\gamma)\,(u-a) \right)
+\end{equation}
+which is easily invertible.  Therefore, to generate a random variable $u$, throw $0 \leq x < 1$
+and calculate:
+\begin{equation}
+u = a - \frac{1}{\gamma-1} \ln (1-x)
+\end{equation}
+After generating $N$ such shows, each should have a weight:
+$$w = \frac{1}{N} \, J(a) = \frac{1}{N} \, \frac{\alpha}{1-\gamma} \, \exp\left( (1-\gamma) \, a \, \right)$$
+
+
+\section{Preliminaries: Flat-Surface Flux}
+
+We are interested in the flux of incident cosmic ray particles
 when projected (without any attenuation or scattering, this is just
 for accounting) to the surface of the earth.  We first approximate
 the earth as an infinite plane (appropriate for our thin atmosphere,
-as we shall see) and calculate the angle-integrade differential flux as:
+as we shall see) and calculate the flat-surface differential flux as:
 simply:
 $$F = \int  J \cos \theta d\Omega = 2\pi J \int_0^{\pi/2} \cos\theta \, \sin\theta \, d\theta$$
 where we integrate only over the upper hemisphere, have included
-a factor of $\cos\theta$ for a horizontal surface, and used the fact
+a factor of $\cos\theta$ for a flat horizontal surface, and used the fact
 that $J$ is independent of direction.  Computing the integral we find that:
 \begin{equation}
 F = \pi J
 \end{equation}
+or equivently:
+\begin{equation}
+\frac{dF}{dE} = \pi \frac{dJ}{dE}
+\end{equation}
 
-For an atmosphere of height $h$ and earths radius $R$ and impact
-parameter $b$, at TOA we have incident angle $\alpha$ and:
-$$\sin \alpha = \frac{b}{R+h}$$
-and at ground we have incident nalge $beta$ and:
-$$\sin \beta = \frac{b}{R}$$
+Our earth has atmosphere of height $h$ and radius $R$.  An incident
+cosmic ray primary has some impact parameter $b$, which is the same whethere measured at TOA or on the ground.  At TOA we have incident angle $\theta_h$ and:
+$$\sin \theta_h = \frac{b}{R+h}$$
+while at ground we have incident angle $\theta_g$ and:
+$$\sin \theta_g = \frac{b}{R}$$
 so that:
 \begin{equation}
-(R+h) \sin \alpha = R \sin \beta
+(R+h) \sin \theta_h = R \sin \theta_g
 \end{equation}
-It is left as an exercise to compute the Jacobian:
-$$\frac{d\Omega_\alpha}{d\Omega_\beta} = \left( \frac{R}{R+h} \right)^2 \frac{\cos \beta}{\sqrt{1 - \left( \frac{R}{R+h} \right)^2 \sin^2\beta}}$$
-and show that the resulting incident flux per unit horizontal area (now accounting for earth's shape) is:
+The Jacobian:
+$$\frac{d\Omega_h}{d\Omega_g} = \left( \frac{R}{R+h} \right)^2 \frac{\cos \theta_g}{\sqrt{1 - \left( \frac{R}{R+h} \right)^2 \sin^2\theta_g}}$$
+and the resulting incident flat-surface differential flux (now accounting for earth's shape) is:
 $$F = 0.92 \, \pi \, J $$
-for TOA at $100~\rm km$.  Note that $\alpha$ and $\beta$ will be
-recycled as parameters after this exercise!
+for TOA at $100~\rm km$.
 
 \section{Local Muon Flux from Extensive Air Showers}
 
@@ -105,16 +176,16 @@ at which the muon flux in the lab is detectable by the phone network.
 A typical phone has an area times efficiency of
 $$A_{\rm eff} = 2 \times 10^{-5}~\rm m^2$$
 We define a detectable muon flux $\Phi$ as the density at which a
-network of $N_{\rm P}$ phones can be expected to register at least one
-hit.  So for $N_{\rm P}=1000$, we have:
+network of $N_{\rm P}$ phones is expected to register at least one hit
+on average.  So for $N_{\rm P}=1000$, we have:
 \begin{equation}
 \Phi_{\rm D} = \frac{1}{A_{\rm eff}~N_{\rm P} } = 50~{\rm muons} / {\rm m^2}
 \end{equation}
 
-We saw in the preceding section that the incident flux of cosmic rays follows a power law:
-$$ J(E) = \alpha \left( \frac{E}{\epsilon} \right)^{-\gamma} $$
+We saw in the preceding section that the incident flux of cosmic rays follows a power law, and the differential intensity is given by 
+$$ \frac{dJ}{dE} = \frac{\alpha}{\epsilon} \left( \frac{E}{\epsilon} \right)^{-\gamma} $$
 and the angle-integrated differential flux:
-$$ F(E) = 0.92 \; \pi \; J(E) $$
+$$ \frac{dF}{dE} = 0.92 \; \pi \; \frac{dJ}{dE} $$
 where we can set 0.92 to one if we want to approximate the earth as an
 infinite plane.  The number of muons $N$ produced by a shower of energy $E$ also follows a power law:
 \begin{equation}
@@ -136,7 +207,7 @@ The radius at which the flux $\Phi$ drops to $\Phi_{\rm D}$ is:
 $$r = -\lambda \ln \left( \frac{2 \pi \lambda^2 \Phi_{\rm D}}{N} \right)$$
 which means the area $A_{\rm D}$ over which there is a detectable muon flux is give by:
 $$A_{\rm D}(E) = \pi \lambda^2 \; \left( \ln \frac{2 \pi \lambda^2 \Phi_{\rm D}}{N(E)} \right)^2$$
-which is only valid ($A_{rm D} > 0$) when:
+which is only valid ($A_{\rm D} > 0$) when:
 $$\Phi(0) = \frac{N(E)}{2\pi\lambda^2} > \Phi_D$$
 which sets a minimum energy, as we shall see.  Using the power law, note that:
 $$\frac{N(E)}{\Phi_{\rm D} \, 2\pi\lambda^2}
@@ -153,11 +224,11 @@ which is only valid for $E > \kappa \epsilon$ (which you can verify is equivalen
 
 We are interested in the quanity:
 \begin{equation}
-\frac{dN}{dE dt} = F(E) A_{\rm D}(E) = (0.92) \pi J(E) A_{\rm D}(E)  
+\frac{dN}{dE dt} = F(E) A_{\rm D}(E) = (0.92) \pi \frac{dJ}{dE} A_{\rm D}(E)  
 \end{equation}
 Plugging in the results below we obtain our main result:
 \begin{equation}
-\frac{dN}{dE \, dt} = (0.92) \alpha \, (\pi \lambda \eta)^2 \, \left( \frac{E}{\epsilon}\right)^{\eta-\gamma}
+\frac{dN}{dE \, dt} = (0.92) \frac{\alpha}{\epsilon} \, (\pi \lambda \eta)^2 \, \left( \frac{E}{\epsilon}\right)^{\eta-\gamma}
 \left( \ln \frac{E}{\kappa \epsilon}\right)^2
 \end{equation}
 which we need only integrate to calculate the rate at which a point on the surface of the earth has a local muon flux exceeding $\Phi_D$.  Defining:
@@ -166,7 +237,7 @@ f(\kappa) = \int_\kappa^\infty x^{\eta-\gamma} \left( \ln \frac{x}{\kappa}\right
 \end{equation}
 we can write the rate as:
 \begin{equation}
-\frac{dN}{dt} = (0.92) \alpha \epsilon \, (\pi \lambda \eta)^2 f(\kappa)  
+\frac{dN}{dt} = (0.92) \alpha \, (\pi \lambda \eta)^2 f(\kappa)  
 \end{equation}
 
 
