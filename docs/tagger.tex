@@ -226,21 +226,57 @@ We are interested in the quanity:
 \begin{equation}
 \frac{dN}{dE dt} = F(E) A_{\rm D}(E) = (0.92) \pi \frac{dJ}{dE} A_{\rm D}(E)  
 \end{equation}
-Plugging in the results below we obtain our main result:
+Plugging in the results below we obtain:
 \begin{equation}
-\frac{dN}{dE \, dt} = (0.92) \frac{\alpha}{\epsilon} \, (\pi \lambda \eta)^2 \, \left( \frac{E}{\epsilon}\right)^{\eta-\gamma}
+\frac{dN}{dE \, dt} = (0.92) \frac{\alpha}{\epsilon} \, (\pi \lambda \eta)^2 \, \left( \frac{E}{\epsilon}\right)^{-\gamma}
 \left( \ln \frac{E}{\kappa \epsilon}\right)^2
 \end{equation}
-which we need only integrate to calculate the rate at which a point on the surface of the earth has a local muon flux exceeding $\Phi_D$.  Defining:
+which we can integrate from $E=\kappa \epsilon$ to $\infty$ and obtain our main result:
 \begin{equation}
-f(\kappa) = \int_\kappa^\infty x^{\eta-\gamma} \left( \ln \frac{x}{\kappa}\right)^2 dx
-\end{equation}
-we can write the rate as:
-\begin{equation}
-\frac{dN}{dt} = (0.92) \alpha \, (\pi \lambda \eta)^2 f(\kappa)  
+  \frac{dN}{dt} = (0.92) \alpha \, (\pi \lambda \eta)^2 \kappa^{1-\gamma} \,
+  \frac{2}{(\gamma - 1)^3}
 \end{equation}
 
 
+\section{Thoughts}
+\begin{itemize}
+
+\item The cosmic ray background is 170 muons per second per m$^2$.  If
+  phones integrate 1 s, that amounts to 170 muons per m$^2$ of muon
+  flux, which any signal must overcome. 
+
+\item We could try to directly reduce this background, e.g. by siting
+  the pilot study underground.
+
+\item We could improve the timing resolution of the phones.  At 1/10 s
+  the background density becomes 17 muons per m$^2$, and at 1/100 s, 1.7
+  muons per m$^2$. 
+  
+\item If our tagger is set to trigger at muon flux higher than the background flux, we can reliably get a signal that exceeds background.  But our sample size is limited by the rate at which EAS cause showers.  For example (with $\lambda=200 m)$\\[4pt]
+\begin{tabular}{ll}
+muons / m$^2$ & showers per year \\
+340 & 0.02 \\
+100 & 0.4 \\
+50  & 2.0 \\
+20  & 14 \\
+10  & 63 \\
+5   & 282 \\
+\end{tabular}
+
+\item We could add sites or years to improve these statistics, but
+  rejecting background seems more promising to me.
+
+\item Almost certainly we can get a factor of 1/10 reduction, with
+  limited additional deadtime, by using an external trigger.  Perhaps
+  even we can do this on the phone, with a better designed pipeline.
+
+\item Getting a factor of 1/100th might be possible with external
+  trigger, but deadtime is likely becoming significant (50\% assuming
+  readout is ~ 10 ms).
+
+\item 1/10 time resolution plus overburden 1/10 gets us to 1.7 muons / m$^2$, and 282 events per year well exceeding this...
+
+\end{itemize}
 
 
 \section{Introduction}
