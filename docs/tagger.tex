@@ -196,7 +196,7 @@ $$w = \frac{1}{N} \, J(a) = \frac{1}{N} \, \frac{\alpha}{\gamma-1} \, \exp\left(
 which accounts for the original assumption that the shower has $u > a$.
 
 
-\section{Flat-Surface Flux}
+\section{Incident Cosmic Ray Flux}
 
 Next we calcualte the flux of incident cosmic ray particles when
 projected (without any attenuation or scattering) to the surface of
@@ -208,43 +208,23 @@ where we integrate only over the upper hemisphere, have included
 a factor of $\cos\theta$ for a flat horizontal surface, and used the fact
 that $J$ is independent of direction.  Computing the integral we find that:
 \begin{equation}
-F = \pi J
+F = C \pi J
 \end{equation}
 or equivently:
 \begin{equation}
-\frac{dF}{dE} = \pi \frac{dJ}{dE}
+\frac{dF}{dE} = C \pi \frac{dJ}{dE}
 \end{equation}
-The effect of the the Earth's curvature is considering in the
-appendix, where it shown to add an additional factor of 0.92 to both
-of these equations.  However, we neglect the Earth's curvature in the
-analysis that follows.
+where $C=1$ for the flat-surface approximation made here.  The effect
+of the Earth's curvature is considered in the Appendix, where it shown
+that $C=0.92$.
 
-\section{Local Muon Density}
+\section{Local Muon Density from Extensive Air Showers}
 
-\section{Local Muon Flux from Extensive Air Showers}
-
-A critical consideration for the feasibility of studying extensive air
-showers in the lab, using a local network of cell phones, is the rate
-at which the muon flux in the lab is detectable by the phone network.
-A typical phone has an area times efficiency of
-$$A_{\rm eff} = 2 \times 10^{-5}~\rm m^2$$
-We define a detectable muon flux $\Phi$ as the density at which a
-network of $N_{\rm P}$ phones is expected to register at least one hit
-on average.  So for $N_{\rm P}=1000$, we have:
-\begin{equation}
-\Phi_{\rm D} = \frac{1}{A_{\rm eff}~N_{\rm P} } = 50~{\rm muons} / {\rm m^2}
-\end{equation}
-
-We saw in the preceding section that the incident flux of cosmic rays follows a power law, and the differential intensity is given by 
-$$ \frac{dJ}{dE} = \frac{\alpha}{\epsilon} \left( \frac{E}{\epsilon} \right)^{-\gamma} $$
-and the angle-integrated differential flux:
-$$ \frac{dF}{dE} = 0.92 \; \pi \; \frac{dJ}{dE} $$
-where we can set 0.92 to one if we want to approximate the earth as an
-infinite plane.  The number of muons $N$ produced by a shower of energy $E$ also follows a power law:
+The number of muons $N$ produced by a shower of energy $E$ follows a power law:
 \begin{equation}
 N(E) = \beta \left( \frac{E}{\epsilon} \right)^{\eta}
 \end{equation}
-Suppose that these $N$ muons have lateral profile given by:
+Suppose that these $N$ muons have lateral density profile given by:
 $$\Phi(r) = \Phi(0) \exp(-r / \lambda)$$
 where $\lambda$ is the length scale of the muon lateral profile.  The condition:
 $$\int_0^\infty \; \Phi(r) \, 2 \pi r \, dr = N$$
@@ -256,8 +236,52 @@ and
 \begin{equation}
 \Phi(r) =  \frac{N(E)}{2 \pi \lambda^2} \; \exp(-r / \lambda)
 \end{equation}
-The radius at which the flux $\Phi$ drops to $\Phi_{\rm D}$ is:
-$$r = -\lambda \ln \left( \frac{2 \pi \lambda^2 \Phi_{\rm D}}{N} \right)$$
+This is invertible to find an equation for the radius at which the
+density falls to $\Phi$:
+\begin{equation}
+r(\Phi) = -\lambda \ln \left( \frac{2 \pi \lambda^2 \Phi}{N(E)} \right)
+\end{equation}
+
+(TODO: comparison of the toy muon model with simulated EAS events) 
+
+prelim/nmuon.pdf
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{prelim/nmuon.pdf}\\
+  \includegraphics[width=0.9\textwidth]{prelim/lateral.pdf}
+    \caption{Preliminary comparison of muon model.}Incident differential intens    \label{fig:cridi}
+\end{figure}
+
+
+
+\section{Local Muon Flux from Extensive Air Showers}
+
+A critical consideration for the feasibility of studying extensive air
+showers in the lab, using a local network of cell phones, is the rate
+of extensive air showers which cause the muon flux in the lab to reach
+or exceed a level detectable by the phone network.  A typical phone
+has an area times efficiency of
+$$A_{\rm eff} = 2 \times 10^{-5}~\rm m^2$$
+We define a detectable muon flux $\Phi_D$ as the density at which a
+network of $N_{\rm P}$ phones is expected to register at least one hit
+on average.  So for $N_{\rm P}=1000$, we have:
+\begin{equation}
+\Phi_{\rm D} = \frac{1}{A_{\rm eff}~N_{\rm P} } = 50~{\rm muons} / {\rm m^2}
+\end{equation}
+
+
+We saw in the preceding section that the incident flux of cosmic rays
+follows a power law, and the differential intensity is given by
+$$ \frac{dJ}{dE} = \frac{\alpha}{\epsilon} \left( \frac{E}{\epsilon} \right)^{-\gamma} $$
+and the angle-integrated differential flux:
+$$ \frac{dF}{dE} = 0.92 \; \pi \; \frac{dJ}{dE} $$
+where we can set 0.92 to one if we want to approximate the earth as an
+infinite plane.
+
+
+
 which means the area $A_{\rm D}$ over which there is a detectable muon flux is given by:
 $$A_{\rm D}(E) = \pi \lambda^2 \; \left( \ln \frac{2 \pi \lambda^2 \Phi_{\rm D}}{N(E)} \right)^2$$
 which is only valid ($A_{\rm D} > 0$) when:
