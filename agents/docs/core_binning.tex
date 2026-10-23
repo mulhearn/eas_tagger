@@ -1,0 +1,59 @@
+\documentclass[11pt]{article}
+
+\usepackage[letterpaper,margin=0.75in,top=0.6in,bottom=0.6in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\begin{document}
+
+\begin{center}
+  {\Large Finer Binning Near the Shower Core: a Proposal} \\[1ex]
+  Draft by ravelstein for Michael Mulhearn, 14 October 2026
+\end{center}
+
+\noindent
+The present muon grids have $100 \times 100$ cells of 20\,m out to $\pm 1$\,km, with cell edges at
+multiples of 20\,m, so the shower core sits on the corner of four cells (Fig.~\ref{fig:bins}a): a small
+footprint is counted as four cells or none.  Near the core, where the detectable rate is decided, we
+would like cells of about 1\,m, with one centred on the core.
+
+\paragraph{The handoff.}  Keep the 20\,m grid as it is, and divide its central $4 \times 4$ cells, the
+80\,m $\times$ 80\,m square within $\pm 40$\,m, into $81 \times 81$ cells of $80/81 = 0.988$\,m.  An odd
+number of cells puts one centred on the core (Fig.~\ref{fig:bins}b), and the fine region ends exactly
+on a 20\,m edge (c).
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/core_binning.pdf}
+  \caption{(a) The grid as now.  (b) The proposed fine cells at the core.  (c) The edge of the fine
+    region, as proposed.}
+  \label{fig:bins}
+\end{figure}
+
+\subsection*{Proposed specification}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+ & coarse (\texttt{grid}, as now) & fine (\texttt{grid\_fine}, new) \\
+\midrule
+cell     & 20\,m                          & $80/81 = 0.988$\,m \\
+cells    & $100 \times 100$, to $\pm 1$\,km & $81 \times 81$, to $\pm 40$\,m \\
+edges    & multiples of 20\,m (through the core) & $(k + \tfrac12) \cdot 80/81$\,m (a cell centred on the core) \\
+coverage & everything, core included      & the central $4 \times 4$ coarse cells \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+\item Per cell, as now (\texttt{count}, \texttt{density\_per\_m2}, \texttt{mean\_energy\_GeV}), plus
+  \texttt{n\_stored}, the number of stored muons, to tell thinning noise from shape near the core.
+\item Benefits: a cell centred on the core; fine binning where it is needed, coarse further out; the
+  fine region ends on a coarse edge, so no partial cells; the coarse grid is unchanged, so new and old
+  files compare directly.
+\end{itemize}
+
+\end{document}
