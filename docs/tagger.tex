@@ -374,6 +374,26 @@ for TOA at $h=100~\rm km$ and earth radius $R=6371~\rm km$.
 
 
 \clearpage
+\section{Analysis tables}
+
+Written by the analysis notebooks (analysis/tex/).
+
+\begin{table}[htbp]
+  \centering
+  \input{../analysis/tex/model.tex}
+  \caption{Model parameters, from model.yaml and nmuons.yaml (full\_analytic).}
+  \label{tab:model}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \input{../analysis/tex/tagging_summary_50.tex}
+  \caption{TODO.  Tagging at threshold:  the operating point, phones read out at the tags, and the significance
+    of the summed excess (tagging\_analytic).}
+  \label{tab:tagging_summary}
+\end{table}
+
+\clearpage
 \section{Analysis figures}
 
 Stubs:  each figure from the analysis notebooks not yet in the text.
@@ -432,6 +452,41 @@ Stubs:  each figure from the analysis notebooks not yet in the text.
   \includegraphics[width=0.7\textwidth]{../analysis/pdf/corsika_contributing_energies.pdf}
   \caption{TODO.  Contributing shower energies at $\Phi_D = 50$, CORSIKA against the analytic model (corsika\_rate).}
   \label{fig:corsika_contributing_energies}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/tagging_phones_50.pdf}
+  \caption{TODO.  Fired phones in one window, a shower at $\Phi_D$ against background alone (tagging\_analytic).}
+  \label{fig:tagging_phones_50}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/tagging_taggers_50.pdf}
+  \caption{TODO.  Fired taggers in one window, a shower at $\Phi_D$ against background alone (tagging\_analytic).}
+  \label{fig:tagging_taggers_50}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/tagging_phones_per_year_50.pdf}
+  \caption{TODO.  Phones alone, untagged:  counts per year against the fired phones required (tagging\_analytic).}
+  \label{fig:tagging_phones_per_year_50}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/tagging_taggers_per_year_50.pdf}
+  \caption{TODO.  Taggers:  shower and combinatoric tags per year against the fired taggers required;  the operating point marked (tagging\_analytic).}
+  \label{fig:tagging_taggers_per_year_50}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/tagging_phones_at_tags_50.pdf}
+  \caption{TODO.  Phones read out at the tags:  counts per year against the fired phones required (tagging\_analytic).}
+  \label{fig:tagging_phones_at_tags_50}
 \end{figure}
 
 

@@ -6,3 +6,4 @@ __pycache__
 .ipynb_checkpoints/
 showers/data/
 *.feather
+analysis/tex/*.tex
