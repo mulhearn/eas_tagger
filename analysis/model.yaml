@@ -1,0 +1,16 @@
+# reference energy, for the spectrum and N(E)
+epsilon: 1.0e+18    # eV
+
+# dJ/dE = (alpha / epsilon) (E / epsilon)^-gamma
+alpha: 3.0e-12      # 1 / (m^2 sr s)
+gamma: 3.0
+
+# N(E) = beta (E / epsilon)^eta:  beta and eta in nmuons.yaml (written by aaa_muons)
+
+# rho(r) = N exp(-r / lambda) / (2 pi lambda^2)
+lambda: 100.0       # m
+
+# dF/dE = C pi dJ/dE  (C:  Earth's curvature)
+C: 0.92
+
+phi_D: [50, 20]     # muons / m^2
