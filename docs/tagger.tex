@@ -1,0 +1,476 @@
+\documentclass[12pt]{article}
+
+\usepackage[dvips,letterpaper,margin=0.75in,bottom=0.5in]{geometry}
+\usepackage{cite}
+\usepackage{slashed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{geometry}
+
+\begin{document}
+
+\title{Plan For EAS Tagger}
+\author{Michael Mulhearn}
+
+\maketitle
+
+\section{Differential Intensity of Extensive Air Showers}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/fluxes.pdf}
+    \caption{Incident differential intensity ($dJ/dE$), as presented
+      by the Cosmic Ray Database (CRDB).}
+    \label{fig:cridi}
+\end{figure}
+
+\noindent
+The differential\footnote{Take care that some sources use J for this
+quantity, but we are following the more explicit notation of e.g. the
+CRDB} intensity $dJ/dE$ of cosmic rays incident at the top of the
+atmosphere (TOA) is defined as
+$$dJ/dE = \frac{dN}{dE \, dA \, dt \, d\Omega}$$
+where $E$ is the energy of the incident primary and $t$ is time.
+The quantities $d\Omega$ and $dA$ are the infinitesimal solid angle,
+relative to normal, and the infinitesimal area, both {\bf at the TOA}.
+The differential intensity has units:
+$$[dJ/dE] = \left[ \frac{1}{\rm energy \; m^2 \; sr \; s} \right]$$
+where sr is a dimensionless reminder to integrate over solid angle.  The incident
+differential intensity at the top of the atmosphere is independent of
+direction and follows a power law:
+\begin{equation}
+\label{eqn:djde}
+\frac{dJ}{dE} = \frac{\alpha}{\epsilon} \left( \frac{E}{\epsilon} \right)^{-\gamma}
+\end{equation}
+where $\epsilon$ is a reference energy and $\gamma ~\sim 3$. The energy-integrated intensity above some energy $E$ is:
+\begin{equation}
+\label{eqn:je}
+J(E) \; \equiv \;
+\int_{E}^{\infty} \frac{dJ}{dE} \, dE \; = \;
+\frac{\alpha}{\gamma-1} \left( \frac{E}{\epsilon} \right)^{1-\gamma}
+\; = \;
+\frac{E}{\gamma-1} \, \frac{dJ}{dE}
+\end{equation}
+which we can write as:
+\begin{equation}
+\label{eqn:eje}
+E \; \frac{dJ}{dE} = (\gamma - 1) \; J(E)
+\end{equation}
+which shows that the $y$-axis in Fig.~\ref{fig:cridi} is proportional
+to the integrated rate above, as indicated by the labeled gray bands.
+For example, there are:
+$$24 \cdot 60 \cdot 60 \sim 10^5$$
+seconds per day, so the once-per-day band appears at:
+$$E \; \frac{dJ}{dE} = 10^{-5} \; \frac{1}{\rm m^2 \; sr \; s}$$
+Just take care, when interpreting these bands as integrated rates,
+that the factor of $\gamma - 1$ has been neglected, so the actual
+rates are about one half that indicated.
+
+Equation~\ref{eqn:je} also implies that:
+\begin{equation}
+\label{eqn:eje-power}
+E \; \frac{dJ}{dE} = \alpha \, \left( \frac{E}{\epsilon} \right)^{1-\gamma}
+\end{equation}
+which allows us to read off the parameters $\alpha$ and $\gamma$
+easily from Fig.~\ref{fig:cridi}.  First note that:
+$$E \; \left. \frac{dJ}{dE} \right|_\epsilon = \alpha$$
+so we can read off $\alpha$ as the value of the $y$-axis for energy $E=\epsilon$.
+For example, taking $\epsilon=10^9~\rm GeV$ we have
+$$\alpha=10^{-11} \; \frac{1}{\rm m^2 \; sr \; s}$$
+Next, taking the log of both sides of Equation~\ref{eqn:eje-power} yields:
+\begin{equation}
+ \label{eqn:eje-slope}
+ \ln \left( E \frac{dJ}{dE} \right) = \ln(\alpha) + (1-\gamma) \ln \left( \frac{E}{\epsilon} \right)
+\end{equation}
+which shows that the power law is consistent with the linear
+relationship revealed in the log-log plot of Fig.~\ref{fig:cridi}.
+The $y$-axis drops by two orders of magnitude for every one order of
+magnitude increase of the $x$-axis, from which we read off:
+$$ 1 - \gamma = -2 \implies \gamma = 3$$
+To recap, the quantity
+$$E \frac{dJ}{dE},$$
+has several useful properties when plotted versus energy in a log-log scale, as in Fig.~\ref{fig:cridi}:
+\begin{itemize}
+\item The $y$-axis is proportional to integrated rate above $E$.
+\item The log-log plot is linear for a power-law.
+\item The parameter $\alpha$ can be estimated from the $y$-axis value for $E=\epsilon$.
+\item The parameter $\gamma$ can be estimated from the slope.
+\end{itemize}
+The extent to which Fig.~\ref{fig:cridi} is linear is a visual
+indication of the accuracy of the power law.  We further improve the
+accuracy of the power-law model by selecting parameters near the
+region of interest.
+
+\section{Dimensionless Log-Energy Units}
+
+For computational work across many orders of magnitude in energy it is
+helpful to define and work with the dimensionless log-energy variable:
+\begin{equation}
+  \label{eqn:defu}
+  u \equiv \ln \left( \frac{E}{\epsilon}\right)
+  \iff E = \epsilon \, e^u
+\end{equation}
+from which it follows that:
+$$
+du = \frac{dE}{E}
+$$
+and
+\begin{equation}
+ \label{eqn:djdu-edjde}
+ \frac{dJ}{du} = E \frac{dJ}{dE}
+\end{equation}
+The power law of Equation~\ref{eqn:djde} becomes:
+\begin{equation}
+\label{eqn:djdu}
+\frac{dJ}{du} = \alpha \exp((1-\gamma)\, u)
+\end{equation}
+and the linear relationship of Equation~\ref{eqn:eje-slope} becomes:
+$$
+\ln \frac{dJ}{du} = \ln(\alpha) + (1-\gamma) u
+$$
+Direct integration of Equation~\ref{eqn:djdu} gives:
+\begin{equation}
+  J(u) \equiv \int^\infty_u \; \frac{dJ}{du} \; du=
+  \frac{\alpha}{\gamma - 1} \exp((1-\gamma)\, u) = \frac{1}{\gamma-1} \frac{dJ}{du}
+\end{equation}
+which we could also obtain by substituting Equation~\ref{eqn:djdu-edjde} into Equation~\ref{eqn:je}.
+
+\section{Shower Energy generation}
+
+The power-law is a convenient model for both the analytic calculations
+that follow and for toy Monte Carlo shower generation which is used to
+validate our results.  The power law is only approximate, or,
+equivalently, the parameters of the power law vary with shower energy.
+However, our results below include an estimate for a minimum
+detectable shower energy, and we expect that only a narrow energy
+region above this minimum will contribute significantly to our
+experimental rate.  As long as the parameters for the power law are
+taken for the energy range appropriate for our experiment, we expect
+that our results will be accurate.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.5\textwidth]{../analysis/pdf/shower_energy_sim.pdf} &
+    \includegraphics[width=0.5\textwidth]{../analysis/pdf/inclusive_shower_rate.pdf} \\
+    (a) & (b) \\
+  \end{tabular}
+  \caption{Simulated shower energy distribution (a) compared to two
+    equivalent calculations of the power-law model, and (b) inclusive.
+    Power law parameters are estimated at $E=10^{18}~{\rm eV} = 10^9~{\rm
+      GeV}$, where the simulation in (b) compares well to
+    Fig.~\ref{fig:cridi}.
+  }
+  \label{fig:power-law-simulated}
+\end{figure}
+
+
+We simulate showers by drawing a random variable $u$, the
+dimensionless log-energy of the shower, following the distribution
+$dJ/du$.  This is equivalent to drawing a primary energy $E$ according
+to the power-law distribution $dJ/dE$, but is less susceptible to
+round-off errors.  To avoid the divergence at $E=0$, we set a minimum
+shower energy $E_a$ and define:
+$$a \equiv \ln (E_a / \epsilon)$$
+The cumulative distribution function is:
+$$P(u) = \frac{J(a) - J(u)}{J(a)}$$
+which is the probability that a shower with dimensionless log energy greater than $a$ falls in the interval $[a,u]$.
+Equivalently,
+\begin{equation}
+P(u) = 1 - \exp\left( (1-\gamma)\,(u-a) \right)
+\end{equation}
+which is easily invertible.  Therefore, to generate a random variable $u$, throw $0 \leq x < 1$
+and calculate:
+\begin{equation}
+u = a - \frac{1}{\gamma-1} \ln (1-x)
+\end{equation}
+After generating $N$ such showers, each should have a weight:
+$$w = \frac{1}{N} \, J(a) = \frac{1}{N} \, \frac{\alpha}{\gamma-1} \, \exp\left( (1-\gamma) \, a \, \right)$$
+which accounts for the original assumption that the shower has $u > a$.
+
+
+\section{Incident Cosmic Ray Flux}
+
+Next we calcualte the flux of incident cosmic ray particles when
+projected (without any attenuation or scattering) to the surface of
+the earth.  We approximate the earth as an infinite plane (appropriate
+for our thin atmosphere, as we shall see) and calculate the
+flat-surface differential flux as:
+$$F = \int  J \cos \theta d\Omega = 2\pi J \int_0^{\pi/2} \cos\theta \, \sin\theta \, d\theta$$
+where we integrate only over the upper hemisphere, have included
+a factor of $\cos\theta$ for a flat horizontal surface, and used the fact
+that $J$ is independent of direction.  Computing the integral we find that:
+\begin{equation}
+F = C \pi J
+\end{equation}
+or equivently:
+\begin{equation}
+\frac{dF}{dE} = C \pi \frac{dJ}{dE}
+\end{equation}
+where $C=1$ for the flat-surface approximation made here.  The effect
+of the Earth's curvature is considered in the Appendix, where it shown
+that $C=0.92$.
+
+\section{Local Muon Density from Extensive Air Showers}
+
+The number of muons $N$ produced by a shower of energy $E$ follows a power law:
+\begin{equation}
+N(E) = \beta \left( \frac{E}{\epsilon} \right)^{\eta}
+\end{equation}
+Suppose that these $N$ muons have lateral density profile given by:
+$$\Phi(r) = \Phi(0) \exp(-r / \lambda)$$
+where $\lambda$ is the length scale of the muon lateral profile.  The condition:
+$$\int_0^\infty \; \Phi(r) \, 2 \pi r \, dr = N$$
+implies that:
+\begin{equation}
+\Phi(0) = \frac{N(E)}{2 \pi \lambda^2}
+\end{equation}
+and
+\begin{equation}
+\Phi(r) =  \frac{N(E)}{2 \pi \lambda^2} \; \exp(-r / \lambda)
+\end{equation}
+This is invertible to find an equation for the radius at which the
+density falls to $\Phi$:
+\begin{equation}
+r(\Phi) = -\lambda \ln \left( \frac{2 \pi \lambda^2 \Phi}{N(E)} \right)
+\end{equation}
+
+%(TODO: comparison of the toy muon model with simulated EAS events)
+%prelim/nmuon.pdf
+%\begin{figure}[htbp]
+%  \centering
+%  \includegraphics[width=0.9\textwidth]{prelim/nmuon.pdf}\\
+%  \includegraphics[width=0.9\textwidth]{prelim/lateral.pdf}
+%    \caption{Preliminary comparison of muon model.}Incident differential intens    \label{fig:cridi}
+%\end{figure}
+
+\section{Local Muon Flux from Extensive Air Showers}
+
+A critical consideration for the feasibility of studying extensive air
+showers in the lab, using a local network of cell phones, is the rate
+of extensive air showers which cause the muon flux in the lab to reach
+or exceed a level detectable by the phone network.  A typical phone
+has an area times efficiency of
+$$A_{\rm eff} = 2 \times 10^{-5}~\rm m^2$$
+We define a detectable muon flux $\Phi_D$ as the density at which a
+network of $N_{\rm P}$ phones is expected to register at least one hit
+on average.  So for $N_{\rm P}=1000$, we have:
+\begin{equation}
+\Phi_{\rm D} = \frac{1}{A_{\rm eff}~N_{\rm P} } = 50~{\rm muons} / {\rm m^2}
+\end{equation}
+
+
+We saw in the preceding section that the incident flux of cosmic rays
+follows a power law, and the differential intensity is given by
+$$ \frac{dJ}{dE} = \frac{\alpha}{\epsilon} \left( \frac{E}{\epsilon} \right)^{-\gamma} $$
+and the angle-integrated differential flux:
+$$ \frac{dF}{dE} = 0.92 \; \pi \; \frac{dJ}{dE} $$
+where we can set 0.92 to one if we want to approximate the earth as an
+infinite plane.
+
+
+
+which means the area $A_{\rm D}$ over which there is a detectable muon flux is given by:
+$$A_{\rm D}(E) = \pi \lambda^2 \; \left( \ln \frac{2 \pi \lambda^2 \Phi_{\rm D}}{N(E)} \right)^2$$
+which is only valid ($A_{\rm D} > 0$) when:
+$$\Phi(0) = \frac{N(E)}{2\pi\lambda^2} > \Phi_D$$
+which sets a minimum energy, as we shall see.  Using the power law, note that:
+$$\frac{N(E)}{\Phi_{\rm D} \, 2\pi\lambda^2}
+= \frac{\beta}{\Phi_{\rm D} \, 2\pi\lambda^2} \left( \frac{E}{\epsilon}\right)^{\eta} = \left( \frac{E}{\kappa \epsilon}\right)^{\eta}$$
+where
+\begin{equation}
+\kappa = \left( \frac{\Phi_{\rm D} 2 \pi \lambda^2}{\beta}\right)^{1/\eta}
+\end{equation}
+and so:
+\begin{equation}
+A_{\rm D}(E) = \pi \lambda^2 \eta^2 \; \left( \ln \frac{E}{\kappa \epsilon} \right)^2
+\end{equation}
+which is only valid for $E > \kappa \epsilon$ (which you can verify is equivalent to requiring that $\Phi(0) > \Phi_{\rm D}$).
+
+We are interested in the quantity:
+\begin{equation}
+\frac{dN}{dE dt} = \frac{dF}{dE} \; A_{\rm D}(E) = (0.92) \pi \frac{dJ}{dE} A_{\rm D}(E)
+\end{equation}
+Plugging in the results below we obtain:
+\begin{equation}
+\frac{dN}{dE \, dt} = (0.92) \frac{\alpha}{\epsilon} \, (\pi \lambda \eta)^2 \, \left( \frac{E}{\epsilon}\right)^{-\gamma}
+\left( \ln \frac{E}{\kappa \epsilon}\right)^2
+\end{equation}
+which we can integrate from $E=\kappa \epsilon$ to $\infty$ and obtain our main result:
+\begin{equation}
+  \frac{dN}{dt} = (0.92) \alpha \, (\pi \lambda \eta)^2 \kappa^{1-\gamma} \,
+  \frac{2}{(\gamma - 1)^3}
+\end{equation}
+
+
+\section{Projections}
+\begin{itemize}
+
+\item The cosmic ray background is 170 muons per second per m$^2$.  If
+  phones integrate 1 s, that amounts to 170 muons per m$^2$ of muon
+  flux, which any signal must overcome.
+
+\item We could try to directly reduce this background, e.g. by siting
+  the pilot study underground.
+
+\item We could improve the timing resolution of the phones.  At 1/10 s
+  the background density becomes 17 muons per m$^2$, and at 1/100 s, 1.7
+  muons per m$^2$.
+
+\item If our tagger is set to trigger at muon flux higher than the background flux, we can reliably get a signal that exceeds background.  But our sample size is limited by the rate at which EAS cause showers.  For example (with $\lambda=200 m)$\\[4pt]
+\begin{tabular}{ll}
+muons / m$^2$ & showers per year \\
+340 & 0.02 \\
+100 & 0.4 \\
+50  & 2.0 \\
+20  & 14 \\
+10  & 63 \\
+5   & 282 \\
+\end{tabular}
+
+\item We could add sites or years to improve these statistics, but
+  rejecting background seems more promising to me.
+
+\item Almost certainly we can get a factor of 1/10 reduction, with
+  limited additional deadtime, by using an external trigger.  Perhaps
+  even we can do this on the phone, with a better designed pipeline.
+
+\item Getting a factor of 1/100th might be possible with external
+  trigger, but deadtime is likely becoming significant (50\% assuming
+  readout is ~ 10 ms).
+
+\item 1/10 time resolution plus overburden 1/10 gets us to 1.7 muons / m$^2$, and 282 events per year well exceeding this...
+
+\end{itemize}
+
+
+
+\appendix
+\section{Effect of Earth's Curvature}
+
+Our earth has atmosphere of height $h$ and radius $R$.  An incident
+cosmic ray primary has some impact parameter $b$, which is the same
+whethere measured at TOA or on the ground.  At TOA we have incident
+angle $\theta_h$ and:
+$$\sin \theta_h = \frac{b}{R+h}$$
+while at ground we have incident angle $\theta_g$ and:
+$$\sin \theta_g = \frac{b}{R}$$
+so that:
+\begin{equation}
+(R+h) \sin \theta_h = R \sin \theta_g
+\end{equation}
+The Jacobian:
+$$\frac{d\Omega_h}{d\Omega_g} = \left( \frac{R}{R+h} \right)^2 \frac{\cos \theta_g}{\sqrt{1 - \left( \frac{R}{R+h} \right)^2 \sin^2\theta_g}}$$
+and the resulting incident flat-surface differential flux (now accounting for earth's shape) is:
+$$F = 0.92 \, \pi \, J $$
+for TOA at $h=100~\rm km$ and earth radius $R=6371~\rm km$.
+
+
+\clearpage
+\section{Analysis figures}
+
+Stubs:  each figure from the analysis notebooks not yet in the text.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/muon_number.pdf}
+  \caption{TODO.  Muon number per shower from CORSIKA (aaa\_muons).}
+  \label{fig:muon_number}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/analytic_spectrum.pdf}
+  \caption{TODO.  Spectrum in the analytic model against the data (full\_analytic).}
+  \label{fig:analytic_spectrum}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/analytic_muon_number.pdf}
+  \caption{TODO.  Muon number in the analytic model against CORSIKA (full\_analytic).}
+  \label{fig:analytic_muon_number}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/analytic_lateral_profile.pdf}
+  \caption{TODO.  Exponential lateral profile (full\_analytic).}
+  \label{fig:analytic_lateral_profile}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/analytic_detectable_radius.pdf}
+  \caption{TODO.  Detectable radius (full\_analytic).}
+  \label{fig:analytic_detectable_radius}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/analytic_rate.pdf}
+  \caption{TODO.  Detectable rate in the analytic model (full\_analytic).}
+  \label{fig:analytic_rate}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/toy_detectable_rate.pdf}
+  \caption{TODO.  Detectable rate from the toy Monte Carlo against the closed form (shower\_toy).}
+  \label{fig:toy_detectable_rate}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../analysis/pdf/corsika_contributing_energies.pdf}
+  \caption{TODO.  Contributing shower energies at $\Phi_D = 50$, CORSIKA against the analytic model (corsika\_rate).}
+  \label{fig:corsika_contributing_energies}
+\end{figure}
+
+
+
+
+
+\section{Introduction}
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/eas.png}
+    \caption{Extensive air showers, from Chapter 16 of ``Gaissner Cosmic Rays and Particle Physics''}
+    \label{fig:eas}
+\end{figure}
+
+\begin{itemize}
+ \item Using rates from CRDB.
+ \item Using Whitesons formula for the number of muons:
+$$N_{\mu} = 0.028 (E / 1~{\rm GeV})^{0.93}$$ Note that for $E=10^{19}~\rm
+   eV$, this formular predicts $5\times10^7$ in good agreement with
+   LHS of Fig.~\ref{fig:eas}
+ \item Muons have typical lateral extent of $\lambda$ greater than Moliere radius.  Assuming:
+$$\rho(r) = \frac{N}{2\pi\lambda^2} \ \exp(-x/\lambda)$$
+then $\lambda=220$ puts $\rho(1 {\rm km}) = 2 / \rm m^2$ as in figure.
+
+ \item Aim for $E \ge 10^{18}~\rm eV$.
+
+ \item Expected rate is:
+$$ R = \frac{1}{\rm km^2 \, day \, sr} \, \pi (\pi \lambda^2) = 0.44 \, / \, \rm day$$
+ \item Total muons:
+   $$N_\mu = 6.6 \times 10^6$$
+ \item And density at center:
+   $$\rho(0) = \frac{N_\mu}{2 \pi \lambda^2} = 21 /~\rm m^2$$
+ \item $A\epsilon = 2\times 10^{-5}$, for 1000 phones:  $0.02~\rm m^2$
+ \item Muons hits in phone per shower:  $0.42$ per shower.
+ \item Expect a phone hit coincident with tagger more than once per week.
+ \item Taggers of size $0.1 m^2$ should be well suited.
+\end{itemize}
+
+\end{document}
