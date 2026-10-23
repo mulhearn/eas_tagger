@@ -23,3 +23,6 @@ beta, eta = mu["beta"], mu["eta"]
 lmbda = par["lambda"]          # lambda is a Python keyword
 C = par["C"]
 phi_D = par["phi_D"]
+mu_flux = par["mu_flux"]
+n_phones, A_phone, dt_phone = int(par["n_phones"]), par["phone_area"], par["phone_window"]
+n_taggers, A_tagger, dt_tagger = int(par["n_taggers"]), par["tagger_area"], par["tagger_window"]

@@ -14,3 +14,12 @@ lambda: 100.0       # m
 C: 0.92
 
 phi_D: [50, 20]     # muons / m^2
+
+# devices (tagging_analytic):  N each, area each (area x efficiency, efficiency taken as 1)
+mu_flux: 170                # background muons / (m^2 s), sea level
+n_phones: 1000
+phone_area: 2.0e-5          # m^2 per phone
+phone_window: 0.1           # s
+n_taggers: 10
+tagger_area: 0.014          # m^2 per tagger
+tagger_window: 1.0e-6       # s
