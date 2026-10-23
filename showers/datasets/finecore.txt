@@ -1,0 +1,3 @@
+# all: the complete fine-core set (data/finecore_complete/h5, 9,360 showers; fewer at the top energies:
+# 70 at 3.76e+10 and 4.33e+10 GeV, 20 at 4.98e+10 GeV).  Made by ravelstein 2026-10-19.
+data/finecore_complete/h5/*.h5

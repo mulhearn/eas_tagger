@@ -1,17 +1,20 @@
 name: crayfis
 channels:
   - conda-forge
-  - defaults
 dependencies:
   - python=3.11
-  - numpy
+  - numpy>=2.0           # np.trapezoid
   - scipy
   - matplotlib
   - pandas
+  - h5py                 # the shower files
+  - pyarrow              # Feather tables
+  - pyyaml               # model parameters
   - seaborn
   - scikit-learn
   - numba
   - jupyter
+  - nbformat             # notebook generators
   - pip
   - pip:
       - tqdm

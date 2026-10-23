@@ -1,2 +1,8 @@
 *.pdf
+*.aux
+*.log
 __pycache__
+*.out
+.ipynb_checkpoints/
+showers/data/
+*.feather

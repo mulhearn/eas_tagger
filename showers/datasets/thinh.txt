@@ -1,0 +1,4 @@
+# lighter thinning (THINH 10. 10.): Daniel's runs with the standard card plus THINH (data/finecore_thinh/h5,
+# spreadthinh-*: 922 showers, about 10 per energy).  The archive also holds 13 spread-*_DAT0092* files
+# (2026-10-17, 7 energies) of unknown settings; they are left out.  Made by ravelstein 2026-10-19.
+data/finecore_thinh/h5/spreadthinh-*.h5

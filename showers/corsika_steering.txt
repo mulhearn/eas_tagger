@@ -1,0 +1,22 @@
+CORSIKA steering card for the eas_tagger showers
+{energy} (GeV), {seed} and {ecut} (muon cut, GeV; the "cut0.1" in file names) vary between runs.
+
+EVTNR 1
+NSHOW 1
+PRMPAR 14
+ERANGE {energy} {energy}
+THETAP 0. 0.
+PHIP 0. 360.
+SEED {seed} 0 0
+OBSLEV 0.0
+ATMOD 1
+MAGNET 20.0 50.0
+THIN 1.e-6 1e4 0.
+HADFLG 0 1 0 0 0 2
+ECUTS 0.3 {ecut} 0.003 0.003
+MUMULT T
+ELMFLG T T
+PAROUT T T
+SIBYLL T 0
+DIRECT ./en_{energy}_ecut_{ecut}/
+EXIT
